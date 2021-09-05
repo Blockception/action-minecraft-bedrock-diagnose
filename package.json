@@ -2,9 +2,9 @@
   "name": "action-minecraft-bedrock-diagnose",
   "version": "1.0.0",
   "description": "Tests the content of your minecraft project for errors and outputs them to the action console as well as mark it as failed",
-  "main": "out/action.js",
+  "main": "out/src/action.js",
   "scripts": {
-    "compile": "tsc && ncc build",
+    "compile": "tsc && npx ncc build",
     "build": "npm run clean && npm run compile",
     "test": "mocha --debug-brk",
     "clean": "rimraf lib",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@types/node": "^16.7.10",
-    "ncc": "^0.3.6",
     "typescript": "^4.4.2"
   }
 }
