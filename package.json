@@ -1,0 +1,44 @@
+{
+  "name": "action-minecraft-bedrock-diagnose",
+  "version": "1.0.0",
+  "description": "Tests the content of your minecraft project for errors and outputs them to the action console as well as mark it as failed",
+  "main": "out/action.js",
+  "scripts": {
+    "compile": "tsc && ncc build",
+    "build": "npm run clean && npm run compile",
+    "test": "mocha --debug-brk",
+    "clean": "rimraf lib",
+    "pretest": "npm run compile",
+    "prepublishOnly": "npm test && npm run compile",
+    "preversion": "",
+    "postversion": "git push && git push --tags",
+    "version": "git add -A src",
+    "watch": "tsc -w -p ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blockception/action-minecraft-bedrock-diagnose.git"
+  },
+  "keywords": [
+    "github",
+    "action",
+    "minecraft",
+    "bedrock",
+    "diagnose",
+    "unittest"
+  ],
+  "author": "Blockception Ltd",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Blockception/action-minecraft-bedrock-diagnose/issues"
+  },
+  "homepage": "https://github.com/Blockception/action-minecraft-bedrock-diagnose#readme",
+  "dependencies": {
+    "@actions/core": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "ncc": "^0.3.6",
+    "typescript": "^4.4.2"
+  }
+}

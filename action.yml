@@ -1,0 +1,12 @@
+name: 'Markdown action: create indexes'
+description: 'Creates indexes pages for a markdown styled wiki'
+branding:
+  icon: activity
+  color: green
+inputs:
+  folder:
+    description: The folder path to start at
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
