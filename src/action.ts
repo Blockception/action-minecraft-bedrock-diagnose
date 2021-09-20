@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as core from '@actions/core';
 
 //Start code
