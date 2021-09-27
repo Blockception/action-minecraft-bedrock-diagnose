@@ -98,8 +98,6 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
       endColumn: r.end.character,
     };
 
-    message += "\ndoc: " + this.doc.uri;
-
     switch (severity) {
       case DiagnosticSeverity.error:
         this.errors = true;

@@ -56,9 +56,11 @@ function process_file(file: string, pack: Pack, context: Context): void {
 }
 
 function diagnose_pack(data: PackFiles, context: Context): void {
-  core.info("Diagnosing pack: " + data.pack.folder);
+  core.startGroup(data.pack.folder);
 
   data.files.forEach((filepath) => diagnose_file(filepath, context));
+
+  core.endGroup();
 }
 
 function diagnose_file(filepath: string, context: Context): void {
