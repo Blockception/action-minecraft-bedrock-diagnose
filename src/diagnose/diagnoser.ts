@@ -2,7 +2,6 @@ import { ProjectData } from "bc-minecraft-bedrock-project";
 import {
   Diagnoser,
   DiagnoserContext,
-  DiagnosticsBuilderContent,
   DiagnosticSeverity,
   InternalDiagnosticsBuilder,
 } from "bc-minecraft-bedrock-diagnoser";
@@ -23,11 +22,13 @@ export class Context implements DiagnoserContext {
   public project: MCProject;
   public data: ProjectData;
   public diagnoser: Diagnoser;
+  public base: string;
 
   constructor(folder: string) {
     this.project = MCProject.loadSync(folder);
     this.data = new ProjectData(this);
     this.diagnoser = new Diagnoser(this);
+    this.base = folder;
   }
 
   /**
@@ -62,27 +63,29 @@ export class Context implements DiagnoserContext {
 }
 
 class _InternalDiagnoser implements InternalDiagnosticsBuilder {
-  public context: DiagnosticsBuilderContent;
+  public context: Context;
   public project: MCProject;
   public doc: TextDocument;
   public errors: boolean;
+  public path: string;
 
   /**
    *
    * @param context
    * @param project
    */
-  constructor(context: DiagnosticsBuilderContent | DiagnoserContext, project: MCProject, doc: TextDocument) {
+  constructor(context: Context, project: MCProject, doc: TextDocument) {
     this.context = context;
     this.project = project;
     this.doc = doc;
     this.errors = false;
+    this.path = this.doc.uri.replace(context.base, "");
 
-    core.startGroup(this.doc.uri);
+    core.startGroup(this.path);
   }
 
   done(): void {
-    if (this.errors) core.setFailed("found errors for doc: " + this.doc.uri);
+    if (this.errors) core.setFailed("found errors for doc: " + this.path);
     core.endGroup();
     //Nothing to mark done
   }

@@ -47,7 +47,7 @@ function process_file(file: string, pack: Pack, context: Context): void {
   try {
     const doc = context.getDocument(file);
     if (doc) {
-      core.info("Processing file: " + doc.uri);
+      core.info("Processing file: " + name(doc.uri, context));
       pack.process(doc);
     }
   } catch (err) {
@@ -56,7 +56,7 @@ function process_file(file: string, pack: Pack, context: Context): void {
 }
 
 function diagnose_pack(data: PackFiles, context: Context): void {
-  core.startGroup(data.pack.folder);
+  core.startGroup("diagnose: " + name(data.pack.folder, context));
 
   data.files.forEach((filepath) => diagnose_file(filepath, context));
 
@@ -64,11 +64,13 @@ function diagnose_pack(data: PackFiles, context: Context): void {
 }
 
 function diagnose_file(filepath: string, context: Context): void {
-  core.info("Diagnosing file: " + filepath);
-
   try {
     context.diagnoser.Process(filepath);
   } catch (err) {
     core.error(err);
   }
+}
+
+function name(path: string, context: Context) {
+  return path.replace(context.base, "");
 }
