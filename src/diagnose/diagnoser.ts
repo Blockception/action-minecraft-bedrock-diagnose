@@ -13,7 +13,7 @@ import { readFileSync } from "fs";
 import { TextDocument, Range } from "vscode-languageserver-textdocument";
 import { Types } from "bc-minecraft-bedrock-types";
 import * as core from "@actions/core";
-import { Character } from '../code/character';
+import { Character } from "../code/character";
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
@@ -65,7 +65,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
   public context: DiagnosticsBuilderContent;
   public project: MCProject;
   public doc: TextDocument;
-  public errors : boolean;
+  public errors: boolean;
 
   /**
    *
@@ -97,6 +97,8 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
       endLine: r.end.line,
       endColumn: r.end.character,
     };
+
+    message = message.replace(/[\r\n]+/gi, "");
 
     switch (severity) {
       case DiagnosticSeverity.error:
