@@ -65,6 +65,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
   public context: DiagnosticsBuilderContent;
   public project: MCProject;
   public doc: TextDocument;
+  public errors : boolean;
 
   /**
    *
@@ -75,10 +76,14 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     this.context = context;
     this.project = project;
     this.doc = doc;
+    this.errors = false;
+
+    core.startGroup(this.doc.uri);
   }
 
   done(): void {
-		core.info("diagnostics done: " + this.doc.uri);
+    if (this.errors) core.setFailed("found errors for doc: " + this.doc.uri);
+    core.endGroup();
     //Nothing to mark done
   }
 
@@ -97,6 +102,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
 
     switch (severity) {
       case DiagnosticSeverity.error:
+        this.errors = true;
         core.error(message, anno);
         break;
       case DiagnosticSeverity.warning:

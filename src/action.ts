@@ -12,5 +12,5 @@ try {
 
   //If failed
 } catch (error) {
-  core.error(error);
+  core.setFailed(error);
 }

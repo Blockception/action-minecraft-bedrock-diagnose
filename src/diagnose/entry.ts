@@ -22,7 +22,7 @@ export function diagnose(folder: string): void {
 type PackFiles = { pack: Pack; files: string[] };
 
 function process_pack(pack: Pack, context: Context): PackFiles {
-  console.log("Processing pack: " + pack.folder);
+  core.startGroup(pack.folder);
 
   let files: string[];
 
@@ -39,6 +39,7 @@ function process_pack(pack: Pack, context: Context): PackFiles {
   //Process each file
   files.forEach((filepath) => process_file(filepath, pack, context));
 
+  core.endGroup();
   return out;
 }
 
