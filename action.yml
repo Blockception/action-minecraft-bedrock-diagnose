@@ -5,9 +5,10 @@ branding:
   icon: activity
   color: green
 inputs:
-  folders:
-    description: The folder path(s) to start at
-    required: true
+  folder:
+    description: The folder path to start at
+    required: false    
+    default: "${{ github.workspace }}"
 runs:
   using: 'node12'
   main: 'dist/index.js'
