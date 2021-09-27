@@ -1,6 +1,6 @@
 {
   "name": "action-minecraft-bedrock-diagnose",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Tests the content of your minecraft project for errors and outputs them to the action console as well as mark it as failed",
   "main": "out/src/action.js",
   "scripts": {
