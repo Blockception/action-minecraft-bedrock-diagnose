@@ -32,6 +32,6 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: Blockception/action-minecraft-bedrock-diagnose@v1.0.0
+      - uses: Blockception/action-minecraft-bedrock-diagnose@v1.0.4
         with: 
           folder: ${{github.workspace}}/project
