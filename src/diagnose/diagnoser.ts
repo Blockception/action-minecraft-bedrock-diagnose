@@ -1,15 +1,12 @@
 import { ProjectData } from "bc-minecraft-bedrock-project";
 import { Diagnoser, DiagnoserContext, DiagnosticSeverity, InternalDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
-import { DocumentLocation } from "bc-minecraft-bedrock-types/lib/src/Types/DocumentLocation";
-import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { Glob } from "./glob";
 import { readFileSync } from "fs";
 import { TextDocument, Range } from "vscode-languageserver-textdocument";
-import { Types } from "bc-minecraft-bedrock-types";
 import * as core from "@actions/core";
 import { Character } from "../code/character";
-import { serialize } from "v8";
-import { deflate } from 'zlib';
+import { MCIgnore, MCProject } from "bc-minecraft-project";
+import { Types } from "bc-minecraft-bedrock-types";
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
@@ -92,7 +89,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     core.startGroup("errors: " + this.path);
     core.setFailed("found errors for doc: " + this.path);
 
-    for(let I = 0; I < this.items.length; I++) {
+    for (let I = 0; I < this.items.length; I++) {
       const error = this.items[I];
 
       switch (error.severity) {
@@ -115,7 +112,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     //Nothing to mark done
   }
 
-  Add(position: DocumentLocation, message: string, severity: DiagnosticSeverity, code: string | number): void {
+  Add(position: Types.DocumentLocation, message: string, severity: DiagnosticSeverity, code: string | number): void {
     if (this.project.attributes["diagnostic.disable." + code] === "false") return;
 
     const r = GetRange(position, this.doc);
@@ -153,6 +150,11 @@ function GetRange(position: Types.DocumentLocation, doc: TextDocument): Range {
     Start = position;
     position = doc.offsetAt(position);
     //If document location is already an offset, then grab the start position
+  } else if (Types.OffsetWord.is(position)) {
+    Start = doc.positionAt(position.offset);
+    End = doc.positionAt(position.text.length + position.offset);
+
+    return { start: Start, end: End };
   } else {
     Start = doc.positionAt(position);
   }
@@ -166,7 +168,13 @@ function GetRange(position: Types.DocumentLocation, doc: TextDocument): Range {
     if (Character.IsLetterCode(c) || Character.IsNumberCode(c)) continue;
 
     //Dashes and underscore are to be respected
-    if (c === Character.Character_dash || c === Character.Character_underscore) continue;
+    switch (c) {
+      case Character.Character_dash:
+      case Character.Character_underscore:
+      case Character.Character_forwardslash:
+      case Character.Character_column:
+        continue;
+    }
 
     //Something has been found that is not considered a "word"
     End = doc.positionAt(I);
@@ -188,7 +196,7 @@ function resolveJsonPath(position: string, doc: TextDocument): Range {
   const offset = Types.JsonPath.resolve(doc, position);
 
   const start = doc.positionAt(offset);
-  const end = doc.positionAt(offset + position.length);
+  const end = doc.positionAt(offset + length);
 
   return { start: start, end: end };
 }
