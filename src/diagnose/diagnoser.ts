@@ -116,6 +116,8 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
   }
 
   Add(position: DocumentLocation, message: string, severity: DiagnosticSeverity, code: string | number): void {
+    if (this.project.attributes["diagnostic.disable." + code] === "false") return;
+
     const r = GetRange(position, this.doc);
 
     const anno = {
