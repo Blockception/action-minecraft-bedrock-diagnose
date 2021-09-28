@@ -36,7 +36,7 @@
   "dependencies": {
     "@actions/core": "^1.5.0",
     "bc-minecraft-bedrock-diagnoser": "^1.0.9",
-    "bc-minecraft-bedrock-project": "^1.7.21",
+    "bc-minecraft-bedrock-project": "^1.7.23",
     "fast-glob": "^3.2.7",
     "picomatch": "^2.3.0",
     "vscode-languageserver-textdocument": "^1.0.1"
