@@ -1,10 +1,5 @@
 import { ProjectData } from "bc-minecraft-bedrock-project";
-import {
-  Diagnoser,
-  DiagnoserContext,
-  DiagnosticSeverity,
-  InternalDiagnosticsBuilder,
-} from "bc-minecraft-bedrock-diagnoser";
+import { Diagnoser, DiagnoserContext, DiagnosticSeverity, InternalDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
 import { DocumentLocation } from "bc-minecraft-bedrock-types/lib/src/Types/DocumentLocation";
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { Glob } from "./glob";
@@ -13,6 +8,8 @@ import { TextDocument, Range } from "vscode-languageserver-textdocument";
 import { Types } from "bc-minecraft-bedrock-types";
 import * as core from "@actions/core";
 import { Character } from "../code/character";
+import { serialize } from "v8";
+import { deflate } from 'zlib';
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
@@ -62,12 +59,18 @@ export class Context implements DiagnoserContext {
   }
 }
 
+interface error {
+  message: string;
+  anno: core.AnnotationProperties;
+  severity: DiagnosticSeverity;
+}
+
 class _InternalDiagnoser implements InternalDiagnosticsBuilder {
   public context: Context;
   public project: MCProject;
   public doc: TextDocument;
-  public errors: boolean;
   public path: string;
+  public items: error[];
 
   /**
    *
@@ -78,14 +81,36 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     this.context = context;
     this.project = project;
     this.doc = doc;
-    this.errors = false;
     this.path = this.doc.uri.replace(context.base, "");
 
     core.startGroup(this.path);
   }
 
   done(): void {
-    if (this.errors) core.setFailed("found errors for doc: " + this.path);
+    if (this.items.length <= 0) return;
+
+    core.startGroup("errors: " + this.path);
+    core.setFailed("found errors for doc: " + this.path);
+
+    for(let I = 0; I < this.items.length; I++) {
+      const error = this.items[I];
+
+      switch (error.severity) {
+        case DiagnosticSeverity.error:
+          core.error(error.message, error.anno);
+          break;
+        case DiagnosticSeverity.warning:
+          core.warning(error.message, error.anno);
+          break;
+
+        default:
+        case DiagnosticSeverity.none:
+        case DiagnosticSeverity.info:
+          core.info(error.message);
+          break;
+      }
+    }
+
     core.endGroup();
     //Nothing to mark done
   }
@@ -103,19 +128,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
 
     message = message.replace(/[\r\n]+/gi, "");
 
-    switch (severity) {
-      case DiagnosticSeverity.error:
-        this.errors = true;
-        core.error(message, anno);
-        break;
-      case DiagnosticSeverity.warning:
-        core.warning(message, anno);
-
-      default:
-      case DiagnosticSeverity.none:
-      case DiagnosticSeverity.info:
-        core.info(message);
-    }
+    this.items.push({ anno: anno, message: message, severity: severity });
   }
 }
 
