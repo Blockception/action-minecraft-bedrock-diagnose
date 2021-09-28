@@ -80,8 +80,6 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     this.doc = doc;
     this.path = this.doc.uri.replace(context.base, "");
     this.items = [];
-
-    core.startGroup(this.path);
   }
 
   done(): void {
