@@ -95,6 +95,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
         case DiagnosticSeverity.error:
           core.error(error.message, error.anno);
           break;
+          
         case DiagnosticSeverity.warning:
           core.warning(error.message, error.anno);
           break;
