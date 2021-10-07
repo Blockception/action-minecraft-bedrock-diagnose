@@ -47,8 +47,8 @@ export class Context implements DiagnoserContext {
     return TextDocument.create(uri, "unknown", 0, buffer.toString());
   }
 
-  getFiles(folder: string, ignores: MCIgnore): string[] {
-    return Glob.GetFiles("*", ignores.patterns, folder);
+  getFiles(folder: string, pattern: string[], ignores: MCIgnore): string[] {
+    return Glob.GetFiles(pattern, ignores.patterns, folder);
   }
 
   getCache(): ProjectData {
@@ -95,7 +95,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
         case DiagnosticSeverity.error:
           core.error(error.message, error.anno);
           break;
-          
+
         case DiagnosticSeverity.warning:
           core.warning(error.message, error.anno);
           break;
