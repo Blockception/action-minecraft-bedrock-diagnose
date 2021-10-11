@@ -41,7 +41,7 @@
     "bc-minecraft-project": "^1.0.12",
     "fast-glob": "^3.2.7",
     "picomatch": "^2.3.0",
-    "vscode-languageserver-textdocument": "^1.0.1"
+    "vscode-languageserver-textdocument": "^1.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",
