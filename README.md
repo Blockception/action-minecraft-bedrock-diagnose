@@ -1,5 +1,9 @@
 # Action Minecraft Bedrock Diagnose
 
+[![tagged-release](https://github.com/Blockception/action-minecraft-bedrock-diagnose/actions/workflows/tagged-release.yml/badge.svg)](https://github.com/Blockception/action-minecraft-bedrock-diagnose/actions/workflows/tagged-release.yml)
+[![npm-unit-test](https://github.com/Blockception/action-minecraft-bedrock-diagnose/actions/workflows/npm-test.yml/badge.svg)](https://github.com/Blockception/action-minecraft-bedrock-diagnose/actions/workflows/npm-test.yml)
+
+
 Tests the content of your minecraft project for errors and outputs them to the action console as well as mark it as failed.
 
 ## Example
@@ -32,6 +36,6 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: Blockception/action-minecraft-bedrock-diagnose@v1.1.1
+      - uses: Blockception/action-minecraft-bedrock-diagnose@latest
         with: 
           folder: ${{github.workspace}}/project
