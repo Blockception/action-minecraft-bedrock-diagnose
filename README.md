@@ -39,3 +39,15 @@ jobs:
       - uses: Blockception/action-minecraft-bedrock-diagnose@latest
         with: 
           folder: ${{github.workspace}}/project
+```
+
+## Contributing
+
+First, read the [contributing guide](./CONTRIBUTING.md). fork the project, clone it and run the following commands:
+
+**Installation**
+
+```cmd
+  npm ci
+  npm update
+```
