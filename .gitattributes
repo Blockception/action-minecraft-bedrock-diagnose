@@ -1,4 +1,5 @@
 .ps1 linguist-detectable=false
+dist/index.js linguist-generated
 
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
