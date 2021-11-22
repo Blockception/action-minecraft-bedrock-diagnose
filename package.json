@@ -37,7 +37,7 @@
     "@actions/core": "^1.6.0",
     "bc-minecraft-bedrock-diagnoser": "^1.0.65",
     "bc-minecraft-bedrock-project": "^1.7.60",
-    "bc-minecraft-bedrock-types": "^1.2.18",
+    "bc-minecraft-bedrock-types": "^1.2.19",
     "bc-minecraft-project": "^1.0.15",
     "fast-glob": "^3.2.7",
     "picomatch": "^2.3.0",
