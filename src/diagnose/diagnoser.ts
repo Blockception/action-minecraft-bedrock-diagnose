@@ -4,7 +4,7 @@ import { Glob } from "./glob";
 import { readFileSync } from "fs";
 import { TextDocument, Range } from "vscode-languageserver-textdocument";
 import * as core from "@actions/core";
-import { Character } from "../code/character";
+import { Character } from "../Code/character";
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { Types } from "bc-minecraft-bedrock-types";
 
