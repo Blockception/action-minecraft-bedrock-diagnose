@@ -36,7 +36,7 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "bc-minecraft-bedrock-diagnoser": "^1.0.82",
-    "bc-minecraft-bedrock-project": "^1.7.69",
+    "bc-minecraft-bedrock-project": "^1.7.70",
     "bc-minecraft-bedrock-types": "^1.2.24",
     "bc-minecraft-project": "^1.0.17",
     "fast-glob": "^3.2.11",
