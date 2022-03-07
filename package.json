@@ -35,7 +35,7 @@
   "homepage": "https://github.com/Blockception/action-minecraft-bedrock-diagnose#readme",
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "bc-minecraft-bedrock-diagnoser": "^1.0.89",
+    "bc-minecraft-bedrock-diagnoser": "^1.0.90",
     "bc-minecraft-bedrock-project": "^1.7.74",
     "bc-minecraft-bedrock-types": "^1.2.25",
     "bc-minecraft-project": "^1.0.18",
@@ -51,7 +51,7 @@
     "chai": "^4.3.6",
     "mocha": "^9.2.1",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.6.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   }
 }
