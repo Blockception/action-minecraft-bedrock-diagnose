@@ -6,19 +6,19 @@ name: npm-unit-test
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
-jobs:      
+jobs:
   test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
