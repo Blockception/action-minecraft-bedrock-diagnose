@@ -33,7 +33,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2.3.4
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
       - uses: Blockception/action-minecraft-bedrock-diagnose@latest
