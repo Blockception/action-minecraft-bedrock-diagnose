@@ -6,7 +6,7 @@
       "script": "build",
       "isBackground": false,
       "group": "build",
-      "label": "npm build 'action-minecraft-bedrock-diagnose'",
+      "label": "npm compile 'action-minecraft-bedrock-diagnose'",
       "presentation": { "reveal": "silent", "panel": "dedicated" },
       "problemMatcher": ["$tsc"]
     },
