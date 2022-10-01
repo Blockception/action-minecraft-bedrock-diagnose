@@ -9,6 +9,7 @@ try {
   const Folder = core.getInput("folder");
 
   diagnose(Folder);
+  core.summary.write();
 
   //If failed
 } catch (error) {

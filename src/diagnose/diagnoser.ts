@@ -7,6 +7,7 @@ import * as core from "@actions/core";
 import { Character } from "../code/character";
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { Types } from "bc-minecraft-bedrock-types";
+import { connected } from 'process';
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
@@ -56,7 +57,7 @@ export class Context implements DiagnoserContext {
   }
 }
 
-interface error {
+export interface msgError {
   message: string;
   anno: core.AnnotationProperties;
   severity: DiagnosticSeverity;
@@ -67,7 +68,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
   public project: MCProject;
   public doc: TextDocument;
   public path: string;
-  public items: error[];
+  public items: msgError[];
 
   /**
    *
@@ -93,16 +94,19 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
 
       switch (error.severity) {
         case DiagnosticSeverity.error:
+          core.summary.addRaw(`:exclamation: ${this.path}\n\t${error.message}`);
           core.error(error.message, error.anno);
           break;
 
         case DiagnosticSeverity.warning:
+          core.summary.addRaw(`:warning: ${this.path}\n\t${error.message}`);
           core.warning(error.message, error.anno);
           break;
 
         default:
         case DiagnosticSeverity.none:
         case DiagnosticSeverity.info:
+          core.summary.addRaw(`:bulb: ${this.path}\n\t${error.message}`);
           core.info(error.message);
           break;
       }
@@ -117,12 +121,13 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
 
     const r = GetRange(position, this.doc);
 
-    const anno = {
+    const anno : core.AnnotationProperties = {
       title: typeof code === "number" ? code.toString() : code,
       startLine: r.start.line,
       startColumn: r.start.character,
       endLine: r.end.line,
       endColumn: r.end.character,
+      file: this.path,
     };
 
     message = message.replace(/[\r\n]+/gi, "");
