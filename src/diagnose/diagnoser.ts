@@ -1,13 +1,12 @@
-import { ProjectData } from "bc-minecraft-bedrock-project";
+import { Character } from "../code/character";
 import { Diagnoser, DiagnoserContext, DiagnosticSeverity, InternalDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
 import { Glob } from "./glob";
+import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { readFileSync } from "fs";
 import { TextDocument, Range } from "vscode-languageserver-textdocument";
+import { Types } from 'bc-minecraft-bedrock-types';
 import * as core from "@actions/core";
-import { Character } from "../code/character";
-import { MCIgnore, MCProject } from "bc-minecraft-project";
-import { Types } from "bc-minecraft-bedrock-types";
-import { connected } from 'process';
+import { ProjectData } from "bc-minecraft-bedrock-project";
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
@@ -26,12 +25,7 @@ export class Context implements DiagnoserContext {
     this.base = folder;
   }
 
-  /**
-   *
-   * @param doc
-   * @param project
-   * @returns
-   */
+  /** @inheritdoc */
   getDiagnoser(doc: TextDocument, project: MCProject): InternalDiagnosticsBuilder {
     //is excluded
     if (Glob.IsMatch(doc.uri, project.ignores.patterns)) return undefined;
@@ -52,6 +46,7 @@ export class Context implements DiagnoserContext {
     return Glob.GetFiles(pattern, ignores.patterns, folder);
   }
 
+  /**The project cache data*/
   getCache(): ProjectData {
     return this.data;
   }
