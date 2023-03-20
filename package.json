@@ -35,7 +35,7 @@
   "homepage": "https://github.com/Blockception/action-minecraft-bedrock-diagnose#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "bc-minecraft-bedrock-diagnoser": "^1.19.50-4",
+    "bc-minecraft-bedrock-diagnoser": "^1.19.60-0",
     "bc-minecraft-bedrock-project": "^1.19.50-1",
     "bc-minecraft-bedrock-types": "^1.19.50-0",
     "bc-minecraft-project": "^1.19.40-1",
