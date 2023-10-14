@@ -20,26 +20,18 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-      - name: Checkout Repository
+      - name: 📦 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js Environment
+      - name: 🏗️ Setup Node.js Environment
         uses: actions/setup-node@v3
         with:
           cache: npm
           cache-dependency-path: package-lock.json
           node-version-file: .nvmrc
 
-      - name: Setup project
+      - name: 🏗️ Setup project
         run: npm ci
 
       - name: 📋 Run Tests
         run: npm run test
-
-      - name: 📋 Test Reporter
-        if: ${{ always() }}
-        uses: dorny/test-reporter@v1
-        with:
-          name: 📋 Unit Test
-          reporter: jest-junit
-          path: "**/junit.xml"
