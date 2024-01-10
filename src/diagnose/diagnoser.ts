@@ -1,5 +1,5 @@
 import { Character } from "../code/character";
-import { Diagnoser, DiagnoserContext, DiagnosticSeverity, InternalDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
+import { Diagnoser, DiagnoserContext, DiagnosticSeverity, ManagedDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
 import { Glob } from "./glob";
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { readFileSync } from "fs";
@@ -26,7 +26,7 @@ export class Context implements DiagnoserContext {
   }
 
   /** @inheritdoc */
-  getDiagnoser(doc: TextDocument, project: MCProject): InternalDiagnosticsBuilder {
+  getDiagnoser(doc: TextDocument, project: MCProject): ManagedDiagnosticsBuilder {
     //is excluded
     if (Glob.IsMatch(doc.uri, project.ignores.patterns)) return undefined;
 
@@ -58,18 +58,14 @@ export interface msgError {
   severity: DiagnosticSeverity;
 }
 
-class _InternalDiagnoser implements InternalDiagnosticsBuilder {
+class _InternalDiagnoser implements ManagedDiagnosticsBuilder {
   public context: Context;
   public project: MCProject;
   public doc: TextDocument;
   public path: string;
   public items: msgError[];
 
-  /**
-   *
-   * @param context
-   * @param project
-   */
+  /** @inheritdoc */
   constructor(context: Context, project: MCProject, doc: TextDocument) {
     this.context = context;
     this.project = project;
@@ -78,6 +74,7 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     this.items = [];
   }
 
+  /** @inheritdoc */
   done(): void {
     if (this.items.length <= 0) return;
 
@@ -111,7 +108,8 @@ class _InternalDiagnoser implements InternalDiagnosticsBuilder {
     //Nothing to mark done
   }
 
-  Add(position: Types.DocumentLocation, message: string, severity: DiagnosticSeverity, code: string | number): void {
+  /** @inheritdoc */
+  add(position: Types.DocumentLocation, message: string, severity: DiagnosticSeverity, code: string | number): void {
     if (this.project.attributes["diagnostic.disable." + code] === "false") return;
 
     const r = GetRange(position, this.doc);

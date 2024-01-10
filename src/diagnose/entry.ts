@@ -69,7 +69,7 @@ function diagnose_pack(data: PackFiles, context: Context): void {
 
 function diagnose_file(filepath: string, context: Context): void {
   try {
-    context.diagnoser.Process(filepath);
+    context.diagnoser.process(filepath);
   } catch (err) {
     core.error(err);
   }
