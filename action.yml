@@ -7,7 +7,7 @@ branding:
 inputs:
   folder:
     description: The folder path to start at
-    required: false    
+    required: false
     default: "${{ github.workspace }}"
 runs:
   using: 'node20'
