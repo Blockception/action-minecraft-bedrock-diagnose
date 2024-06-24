@@ -45,10 +45,10 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.16",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.7",
     "@types/node": "^20.14.2",
     "@vercel/ncc": "^0.38.1",
-    "chai": "^5.1.0",
+    "chai": "^5.1.1",
     "mocha": "^10.4.0",
     "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
