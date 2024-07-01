@@ -46,12 +46,12 @@
   "devDependencies": {
     "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.9",
     "@vercel/ncc": "^0.38.1",
     "chai": "^5.1.0",
     "mocha": "^10.4.0",
     "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   }
 }
