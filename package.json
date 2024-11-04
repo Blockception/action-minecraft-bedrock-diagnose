@@ -44,7 +44,7 @@
     "vscode-languageserver-textdocument": "^1.0.12"
   },
   "devDependencies": {
-    "@types/chai": "^5.0.0",
+    "@types/chai": "^5.0.1",
     "@types/mocha": "^10.0.9",
     "@types/node": "^22.8.1",
     "@vercel/ncc": "^0.38.2",
