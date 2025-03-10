@@ -35,10 +35,10 @@
   "homepage": "https://github.com/Blockception/action-minecraft-bedrock-diagnose#readme",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "bc-minecraft-bedrock-diagnoser": "^1.20.71-9",
-    "bc-minecraft-bedrock-project": "^1.20.71-14",
-    "bc-minecraft-bedrock-types": "^1.20.73",
-    "bc-minecraft-project": "^1.20.71-0",
+    "bc-minecraft-bedrock-diagnoser": "^1.21.70-0",
+    "bc-minecraft-bedrock-project": "^1.21.60-0",
+    "bc-minecraft-bedrock-types": "^1.22.1-0",
+    "bc-minecraft-project": "^1.22.1-0",
     "fast-glob": "^3.3.3",
     "picomatch": "^4.0.2",
     "vscode-languageserver-textdocument": "^1.0.12"
