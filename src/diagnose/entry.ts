@@ -12,10 +12,8 @@ export function diagnose(folder: string): void {
   const context = CreateDiagnoser(folder);
 
   const manifests = MinecraftFormat.GetManifests(folder, context.project.ignores.patterns);
-  const pack = context.data.addPack(manifests, context.project);
-
-  //Process file
-  const packdata = pack.map((p) => process_pack(p, context));
+  const packs = manifests.map((m) => context.data.addPack(m, context.project)).filter((p) => p !== undefined);
+  const packdata = packs.map((pack) => process_pack(pack, context))
 
   //Diagnose files
   packdata.forEach((p) => diagnose_pack(p, context));

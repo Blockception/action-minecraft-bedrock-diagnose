@@ -1,18 +1,18 @@
-import { Character } from "../code/character";
-import { Diagnoser, DiagnoserContext, DiagnosticSeverity, ManagedDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
-import { Glob } from "./glob";
+import * as core from "@actions/core";
+import { Diagnoser, DiagnosticsBuilderContent, DiagnosticSeverity, ManagedDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
+import { ProjectData } from "bc-minecraft-bedrock-project";
+import { Types } from 'bc-minecraft-bedrock-types';
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { readFileSync } from "fs";
-import { TextDocument, Range } from "vscode-languageserver-textdocument";
-import { Types } from 'bc-minecraft-bedrock-types';
-import * as core from "@actions/core";
-import { ProjectData } from "bc-minecraft-bedrock-project";
+import { Range, TextDocument } from "vscode-languageserver-textdocument";
+import { Character } from "../code/character";
+import { Glob } from "./glob";
 
 export function CreateDiagnoser(folder: string): Context {
   return new Context(folder);
 }
 
-export class Context implements DiagnoserContext {
+export class Context implements DiagnosticsBuilderContent<TextDocument> {
   public project: MCProject;
   public data: ProjectData;
   public diagnoser: Diagnoser;
@@ -26,7 +26,7 @@ export class Context implements DiagnoserContext {
   }
 
   /** @inheritdoc */
-  getDiagnoser(doc: TextDocument, project: MCProject): ManagedDiagnosticsBuilder {
+  getDiagnoser(doc: TextDocument, project: MCProject): ManagedDiagnosticsBuilder<TextDocument> {
     //is excluded
     if (Glob.IsMatch(doc.uri, project.ignores.patterns)) return undefined;
 
@@ -58,8 +58,8 @@ export interface msgError {
   severity: DiagnosticSeverity;
 }
 
-class _InternalDiagnoser implements ManagedDiagnosticsBuilder {
-  public context: Context;
+class _InternalDiagnoser implements ManagedDiagnosticsBuilder<TextDocument> {
+  public context: DiagnosticsBuilderContent<TextDocument>;
   public project: MCProject;
   public doc: TextDocument;
   public path: string;
