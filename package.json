@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/chai": "^5.2.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.13.12",
     "@vercel/ncc": "^0.38.3",
     "chai": "^5.2.0",
     "mocha": "^11.1.0",
