@@ -40,7 +40,7 @@
     "bc-minecraft-bedrock-types": "^1.22.1-6",
     "bc-minecraft-project": "^1.22.1-0",
     "fast-glob": "^3.3.3",
-    "picomatch": "^4.0.2",
+    "picomatch": "^4.0.3",
     "vscode-languageserver-textdocument": "^1.0.12"
   },
   "devDependencies": {
