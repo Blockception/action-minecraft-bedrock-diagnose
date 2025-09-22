@@ -47,7 +47,7 @@
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.4.0",
-    "@vercel/ncc": "^0.38.3",
+    "@vercel/ncc": "^0.38.4",
     "chai": "^6.0.1",
     "mocha": "^11.7.2",
     "rimraf": "^6.0.1",
