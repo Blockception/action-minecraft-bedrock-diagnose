@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import { Diagnoser, DiagnosticsBuilderContent, DiagnosticSeverity, ManagedDiagnosticsBuilder } from "bc-minecraft-bedrock-diagnoser";
-import { ProjectData } from "bc-minecraft-bedrock-project";
+import { MinecraftData, ProjectData } from "bc-minecraft-bedrock-project";
 import { Types } from 'bc-minecraft-bedrock-types';
 import { MCIgnore, MCProject } from "bc-minecraft-project";
 import { readFileSync } from "fs";
@@ -15,12 +15,15 @@ export function CreateDiagnoser(folder: string): Context {
 export class Context implements DiagnosticsBuilderContent<TextDocument> {
   public project: MCProject;
   public data: ProjectData;
+  /**The minecraft data for project data lookup*/
+  public minecraftData: MinecraftData;
   public diagnoser: Diagnoser;
   public base: string;
 
   constructor(folder: string) {
     this.project = MCProject.loadSync(folder);
     this.data = new ProjectData(this);
+    this.minecraftData = new MinecraftData(this.data);
     this.diagnoser = new Diagnoser(this);
     this.base = folder;
   }
@@ -49,6 +52,11 @@ export class Context implements DiagnosticsBuilderContent<TextDocument> {
   /**The project cache data*/
   getCache(): ProjectData {
     return this.data;
+  }
+
+  /**The minecraft data for project data lookup*/
+  getProjectData(): MinecraftData {
+    return this.minecraftData;
   }
 }
 
