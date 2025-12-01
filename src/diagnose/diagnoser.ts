@@ -15,6 +15,7 @@ export function CreateDiagnoser(folder: string): Context {
 export class Context implements DiagnosticsBuilderContent<TextDocument> {
   public project: MCProject;
   public data: ProjectData;
+  /**The minecraft data for project data lookup*/
   public minecraftData: MinecraftData;
   public diagnoser: Diagnoser;
   public base: string;
